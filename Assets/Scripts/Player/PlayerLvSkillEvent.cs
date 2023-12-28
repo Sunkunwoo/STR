@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class PlayerLvSkillEvent : MonoBehaviour
 {
-    public List<int> index;
     public List<int> lvupLock;
 
     public void LvUpSkillGetEvent(int lv)
     {
-        int listSize = index.Count;
+        int listSize = lvupLock.Count;
 
         for (int i = 0; i < listSize; i++)
         {

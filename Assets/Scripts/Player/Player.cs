@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     public List<SkillData> playerSkillDatas = new List<SkillData>();
     public PlayerLv playerLv;
     public PlayerLvSkillEvent playerLvSkillEvent;
+    public SkillSlotUI[] skillSlots; 
 
     public void Awake()
     {
@@ -16,8 +17,25 @@ public class Player : MonoBehaviour
 
     public void Start()
     {
-        playerSkillDatas.Add(TestManager.I.skillList.skillDatas[0]);
-        playerSkillDatas.Add(TestManager.I.skillList.skillDatas[1]);
-        playerSkillDatas.Add(TestManager.I.skillList.skillDatas[2]);
+        for (int i = 0; i < 5; i++)
+        {
+            playerSkillDatas[i] = TestManager.I.skillList.skillDatas[i];
+        }
+        InitializeSkillSlots();
+    }
+
+    private void InitializeSkillSlots()
+    {
+        for (int i = 0; i < skillSlots.Length; i++)
+        {
+            if (i < playerSkillDatas.Count)
+            {
+                skillSlots[i].SetSkillData(playerSkillDatas[i]);
+            }
+            else
+            {
+                skillSlots[i].SetSkillData(null);
+            }
+        }
     }
 }

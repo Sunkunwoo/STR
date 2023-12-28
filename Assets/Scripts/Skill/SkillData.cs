@@ -1,5 +1,4 @@
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
 public enum SkillGetType
 {
@@ -21,8 +20,8 @@ public enum SkillType
     Def
 }
 
-[CreateAssetMenu(fileName = "SkillData", menuName = "Custom/Skill Data", order = 1)]
-public class SkillData : ScriptableObject
+[Serializable]
+public class SkillData : IComparable<SkillData>
 {
     public int index;
     public string skillName;
@@ -42,6 +41,11 @@ public class SkillData : ScriptableObject
         SkillLvup();
     }
 
+    public int CompareTo(SkillData other)
+    {
+        return index.CompareTo(other.index);
+    }
+
     public void SkillLvup()
     {
         if(skillGetType == SkillGetType.Lvup)
@@ -51,10 +55,14 @@ public class SkillData : ScriptableObject
 
         while(skillExp >= 100)
         {
+            if(skillLv !=0)
+            {
+                point += lvUpPoint;
+                coolTime -= lvUpCoolTime;
+            }
             skillLv++;
             skillExp -= 100;
-            point += lvUpPoint;
-            coolTime -= lvUpCoolTime;
+
         }
     }
 }
